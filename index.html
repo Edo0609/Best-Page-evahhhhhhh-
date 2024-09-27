@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css">
+	<title>Document</title>
+</head>
+
+<body>
+	<main>
+		<video id="video" width="200" height="100" autoplay loop muted playsinline style="display:none;">
+			<source src="cow.mp4" type="video/mp4">
+		</video>
+		<div class="cowdiv">
+			<canvas id="cowcanvas" width="200" height="120"></canvas>
+		</div>
+		<div class="catdiv">
+			<h1><img src="cat1.png" alt="cat" class="cat" id="cat" width="200px" , height="200px"></h1>
+		</div>
+		<div class="vibediv">
+			<img src="cat-vibing-vibing-cat.gif" id="vibe" alt="vibe">
+		</div>
+		<div id="bgjonkler">
+			<div id="jonklerdiv">
+				<img id="jonkler" src="jonkler.png" alt="jonkler">
+			</div>
+		<audio  id="serious">
+			<source src="why so serious.mp3" type="audio/mpeg">
+		</audio>
+		</div>
+		<div class="emudiv">
+			<img id="emu" class="emu" src="emu.png" alt="emu" width="100" height="100">
+		</div>
+	</main>
+	<audio id="background-music" loop>
+		<source src="the cat from ipanema.mp3" type="audio/mpeg">
+	</audio>
+
+	<audio id="sound-effect">
+		<source src="meow.mp3" type="audio/mpeg">
+	</audio>
+	<audio id="wonderhoy">
+		<source src="wonderhoy.mp3" type="audio/mpeg">
+	</audio>
+	<script>
+		const video = document.getElementById('video');
+		const canvas = document.getElementById('cowcanvas');
+		const ctx = canvas.getContext('2d');
+		video.play();
+
+		video.addEventListener('play', function () {
+			// Start the process of rendering the video frame by frame
+			function renderFrame() {
+				if (!video.paused && !video.ended) {
+					// Draw the current frame of the video onto the canvas
+					ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+					// Get the image data (pixel values) from the canvas
+					const frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
+					const data = frame.data;
+
+					// Loop through every pixel in the frame
+					for (let i = 0; i < data.length; i += 4) {
+						const r = data[i];     // Red
+						const g = data[i + 1]; // Green
+						const b = data[i + 2]; // Blue
+
+						// Detect the green color (chroma key) to be keyed out
+						if (g > 150 && r < 130 && b < 130) {
+							// Set the pixel's alpha to 0 (make it transparent)
+							data[i + 3] = 0;
+						}
+					}
+
+					// Put the modified frame back into the canvas
+					ctx.putImageData(frame, 0, 0);
+
+					// Request the next frame of the video
+					requestAnimationFrame(renderFrame);
+				}
+			}
+
+			// Start rendering the video frames when the video starts playing
+			renderFrame();
+		});
+
+	</script>
+	<script>
+		// Select the image and audio elements
+		const image = document.getElementById('cat');
+		const soundEffect = document.getElementById('sound-effect');
+		const music = document.getElementById('background-music');
+		const dance = document.getElementById('vibe');
+		const jonkler = document.getElementById('jonkler');
+		const serious = document.getElementById('serious');
+		music.play();
+		music.volume = 0.3;
+
+		dance.addEventListener('click', function () {
+			serious.pause();
+			serious.currentTime = 0;
+			music.play();
+		});
+
+		jonkler.addEventListener('click', function() {
+			music.pause();
+			music.currentTime = 0;
+			serious.play();
+		});
+
+		// Add a click event listener to the image
+		image.addEventListener('click', function () {
+			// Check if the audio is currently playing
+			if (!soundEffect.paused) {
+				// If it's playing, stop it
+				soundEffect.pause();
+				soundEffect.currentTime = 0; // Reset to start
+			}
+			// Play the sound effect
+			soundEffect.play();
+			image.src = "cat2.png"
+		});
+
+		soundEffect.addEventListener('ended', function () {
+			// Change the image source to "cat2.png"
+			image.src = 'cat1.png';
+		});
+	</script>
+
+<script>
+	// Select the image and audio elements
+	const emu = document.getElementById('emu');
+	const wonderhoy = document.getElementById('wonderhoy');
+	// Add a click event listener to the image
+	emu.addEventListener('click', function () {
+		// Check if the audio is currently playing
+		if (!wonderhoy.paused) {
+			// If it's playing, stop it
+			wonderhoy.pause();
+			wonderhoy.currentTime = 0; // Reset to start
+		}
+		// Play the sound effect
+		wonderhoy.play();
+	});
+</script>
+
+	<script>
+		let x = 0,
+			y = 0,
+			dirX = 1,
+			dirY = 1;
+		const speed = 2;
+		let dvd = document.getElementById("jonkler");
+		let prevColorChoiceIndex = 0;
+		let black = document.getElementById("jonklerdiv");
+		const dvdWidth = dvd.clientWidth;
+		const dvdHeight = dvd.clientHeight;
+		function animate() {
+			const screenHeight = document.body.clientHeight;
+			const screenWidth = document.body.clientWidth;
+
+			if (y + dvdHeight >= screenHeight || y < 0) {
+				dirY *= -1;
+			}
+			if (x + dvdWidth >= screenWidth || x < 0) {
+				dirX *= -1;
+
+			}
+			x += dirX * speed;
+			y += dirY * speed;
+			dvd.style.left = x + "px";
+			dvd.style.top = y + "px";
+			window.requestAnimationFrame(animate);
+		}
+
+		window.requestAnimationFrame(animate);
+	</script>
+</body>
+
+</html>

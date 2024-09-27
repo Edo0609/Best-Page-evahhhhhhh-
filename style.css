@@ -1,0 +1,162 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	height: 100vh;
+	overflow: hidden;
+	animation: backgroundAnimation 5s infinite;
+}
+
+main {
+	padding: 10px;
+	align-items: center;
+	height: 100%;
+	
+}
+
+.cowdiv {
+	position: absolute;
+	width: 200px;
+	height: 200px;
+	top: 0px;
+	left: 0;
+	animation: moveSquare 8s linear infinite;
+}
+
+.catdiv {
+	margin: 10px;
+	position: absolute;
+	top: 300px;
+	animation: loop 5s linear infinite;
+	z-index: 100;
+}
+
+.vibediv {
+	position: absolute;
+	left: calc(50vw - 150px);
+	animation: loopTop 5s linear infinite;
+}
+
+.cat {
+	animation: sway 2s ease-in-out infinite;
+}
+
+@keyframes loop {
+	0% {
+	  transform: translateX(-100%);
+	}
+	100% {
+	  transform: translateX(100vw);
+	}
+  }
+  
+  /* Sway up and down */
+  @keyframes sway {
+	0% {
+	  transform: translateY(0%);
+	}
+	50% {
+	  transform: translateY(-20%);
+	}
+	100% {
+	  transform: translateY(0%);
+	}
+  }
+
+  @keyframes backgroundAnimation {
+	0% {
+	  background-color: #ffcccb; /* Light red */
+	}
+	25% {
+	  background-color: #cdf3ff; /* Blanched Almond */
+	}
+	50% {
+	  background-color: #ffe4e1; /* Misty Rose */
+	}
+	75% {
+	  background-color: #e6e6fa; /* Lavender */
+	}
+	100% {
+	  background-color: #ffcccb; /* Return to Light red */
+	}
+  }
+
+  @keyframes moveSquare {
+	0% {
+	  top: 0;
+	  left: 0;
+	}
+	25% {
+	  top: 0;
+	  left: calc(100vw - 200px); /* Move to the right edge */
+	}
+	50% {
+	  top: calc(100vh - 120px); /* Move down to the bottom */
+	  left: calc(100vw - 200px); /* Stay at the right edge */
+	}
+	75% {
+	  top: calc(100vh - 120px); /* Stay at the bottom */
+	  left: 0; /* Move to the left edge */
+	}
+	100% {
+	  top: 0;
+	  left: 0; /* Return to the starting position */
+	}
+  }
+
+  @keyframes loopTop {
+	0% {
+		transform: translateY(100vh);
+	}
+	100% {
+		transform: translateY(-20vh);
+	}
+  }
+
+#jonklerdiv {
+	height: calc(100vh - 100px);
+	width: 100vw;
+}
+
+#jonkler {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	height: 100px;
+	width: 100px;
+	background-repeat: no-repeat;
+	background-size: 75px;
+	background-position: center;
+  }
+
+.emudiv {
+	position: absolute;
+	top: 0;
+	left: -110px;
+	transform: rotate(90deg);
+	animation: wonderhoy 10s linear infinite;
+}
+
+@keyframes wonderhoy
+{
+	0% {
+		left: -110px;
+	}
+	80% {
+		left: -110px;
+	}
+	85% {
+		left: -50px;
+	}
+	90% {
+		left: -55px;
+	}
+	98% {
+		left: -55px;
+	}
+	100% {
+		left: -110px;
+	}
+}
